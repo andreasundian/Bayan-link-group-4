@@ -1,0 +1,65 @@
+{
+  "entities": {
+    "municipality": {
+      "title": "Municipality",
+      "description": "A municipal unit in the system.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the municipality" },
+        "region": { "type": "string", "description": "Region where it belongs" },
+        "province": { "type": "string", "description": "Province where it belongs" },
+        "mayor": { "type": "string", "description": "Current mayor" },
+        "population": { "type": "number", "description": "Current population" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "region", "province"]
+    },
+    "newsfeed": {
+      "title": "News Feed",
+      "description": "Announcements and news from the Mayor's office.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Title of the announcement" },
+        "content": { "type": "string", "description": "Content of the news" },
+        "author": { "type": "string", "description": "Author of the post" },
+        "category": { "type": "string", "enum": ["Announcement", "Event", "Emergency", "General"] },
+        "imageUrl": { "type": "string", "format": "uri" },
+        "publishedAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["Draft", "Published", "Archived"] }
+      },
+      "required": ["title", "content", "author", "category"]
+    },
+    "service": {
+      "title": "Service",
+      "description": "A municipal service offered to citizens.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the service" },
+        "description": { "type": "string", "description": "Detailed description of the service" },
+        "department": { "type": "string", "description": "Department responsible" },
+        "requirements": { "type": "string", "description": "List of requirements" },
+        "fee": { "type": "number", "description": "Processing fee" },
+        "processingTime": { "type": "string", "description": "Estimated processing time" },
+        "status": { "type": "string", "enum": ["Active", "Inactive", "Maintenance"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "description", "department"]
+    }
+  },
+  "firestore": {
+    "/municipalities/{municipalityId}": {
+      "schema": "municipality",
+      "description": "Collection of municipalities"
+    },
+    "/newsfeeds/{newsfeedId}": {
+      "schema": "newsfeed",
+      "description": "Collection of news announcements"
+    },
+    "/services/{serviceId}": {
+      "schema": "service",
+      "description": "Collection of municipal services"
+    }
+  }
+}
